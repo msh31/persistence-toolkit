@@ -5,7 +5,7 @@
 class startup_persist
 {
     public:
-        bool installStartup(const std::string& targetName, const std::string& location); // location takes either system or user for the startup ppath determiniation
+        bool installStartup(const std::string& targetName, bool systemWide = false);
         bool removeStartup(const std::string& targetName);
 
     private:

@@ -1,18 +1,13 @@
 #include "startup_persist.hpp"
 
-bool startup_persist::installStartup(const std::string& targetName, const std::string& location)
+bool startup_persist::installStartup(const std::string& targetName, bool systemWide)
 {
     try {
-        if (location == "user") {
+        if (systemWide) {
+            startupPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\";
+        }
+        else {
             startupPath = GetEnv("APPDATA") + "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\";
-        }
-
-        if (location == "system") {
-            startupPath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp";
-        }
-
-        if (location.empty()) {
-            return false;
         }
 
         std::string targetPath = startupPath + targetName;
