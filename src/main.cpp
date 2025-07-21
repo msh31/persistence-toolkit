@@ -1,13 +1,15 @@
 #include "registry_persist.hpp"
+#include "startup_persist.hpp"
 
 int main()
 {
     registry_persist regPersist;
-
-    std::cout << "=== REGISTRY PERSISTENCE TEST ===\n\n";
+    startup_persist startPersist;
 
     std::string programName = "TestPersistence";
-    std::string programPath = "C:\\Windows\\System32\\notepad.exe";
+    std::string programPath = "C:\\Windows\\System32\\calc.exe";
+
+    std::cout << "=== REGISTRY PERSISTENCE TEST ===\n\n";
 
     if (regPersist.installUserPersistence(programName, programPath)) {
         std::cout << "Persistence installed successfully!\n";
@@ -22,7 +24,6 @@ int main()
         std::cout << "Failed to install persistence\n";
     }
 
-    std::cout << "\n=== TESTING REMOVAL ===\n";
     if (regPersist.removePersistence(programName)) {
         std::cout << "Persistence removed successfully!\n";
 
@@ -36,6 +37,24 @@ int main()
     else {
         std::cout << "Failed to remove persistence\n";
     }
+
+    std::cout << "\n\n=== STARTUP PERSISTENCE TEST ===\n\n";
+
+    if (startPersist.installStartup("WindowsUpdate.exe", "user")) { 
+        std::cout << "Malware persistence installed successfully!\n";
+        std::cout << "Will auto-start as: WindowsUpdate.exe\n";
+    }
+    else {
+        std::cout << "Failed to install persistence\n";
+    }
+
+    if (startPersist.removeStartup("WindowsUpdate.exe")) {
+        std::cout << "Malware persistence removed successfully!\n";
+    }
+    else {
+        std::cout << "Failed to remove persistence\n";
+    }
+
 
     return 0;
 }
