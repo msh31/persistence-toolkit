@@ -57,17 +57,28 @@ bool registry_persist::validatePersistence(const std::string& name, bool systemW
 
 	if (systemWide) {
 		targetHive = HKEY_LOCAL_MACHINE;
+		std::cout << "Validating system registry (HKLM)...\n";
 	}
 	else {
 		targetHive = HKEY_CURRENT_USER;
+		std::cout << "Validating user registry (HKCU)...\n";
 	}
 
-	if (RegOpenKeyExA(targetHive, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_READ, &key) == ERROR_SUCCESS) {
-		if (RegQueryValueExA(key, name.c_str(), nullptr, &type, (LPBYTE)buffer, &dataSize) == ERROR_SUCCESS) {
+	LONG result = RegOpenKeyExA(targetHive, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_READ, &key);
+	if (result == ERROR_SUCCESS) {
+		LONG queryResult = RegQueryValueExA(key, name.c_str(), nullptr, &type, (LPBYTE)buffer, &dataSize);
+		if (queryResult == ERROR_SUCCESS) {
+			std::cout << "Found registry entry: " << buffer << "\n";
 			RegCloseKey(key);
 			return true;
 		}
+		else {
+			std::cout << "Registry entry not found. Error: " << queryResult << "\n";
+		}
 		RegCloseKey(key);
+	}
+	else {
+		std::cout << "Failed to open registry for validation. Error: " << result << "\n";
 	}
 
 	return false;

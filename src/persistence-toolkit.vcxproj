@@ -133,7 +133,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="persistence_manager.cpp" />
-    <ClCompile Include="persistence_utils.cpp" />
     <ClCompile Include="registry_persist.cpp" />
     <ClCompile Include="service_persist.cpp" />
     <ClCompile Include="startup_persist.cpp" />
@@ -141,7 +140,6 @@
   <ItemGroup>
     <ClInclude Include="includes.hpp" />
     <ClInclude Include="persistence_manager.hpp" />
-    <ClInclude Include="persistence_utils.hpp" />
     <ClInclude Include="registry_persist.hpp" />
     <ClInclude Include="service_persist.hpp" />
     <ClInclude Include="startup_persist.hpp" />
