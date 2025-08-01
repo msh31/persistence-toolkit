@@ -33,11 +33,11 @@ int main()
     if (regPersist.installPersistence(programName, programPath, true)) { 
         std::cout << "System persistence installed successfully!\n";
 
-        if (regPersist.validatePersistence(programName)) {
+        if (regPersist.validatePersistence(programName, true)) {
             std::cout << "System persistence validated!\n";
         }
 
-        regPersist.removePersistence(programName);
+        regPersist.removePersistence(programName, true);
         std::cout << "System persistence removed!\n";
     }
     else {
@@ -45,17 +45,17 @@ int main()
     }
 
     if (regPersist.removePersistence(programName)) {
-        std::cout << "Persistence removed successfully!\n";
+        std::cout << "User persistence removed successfully!\n";
 
         if (!regPersist.validatePersistence(programName)) {
-            std::cout << "Removal validated - entry no longer exists!\n";
+            std::cout << "User persistence removal validated - entry no longer exists!\n";
         }
         else {
-            std::cout << "Removal failed - entry still exists\n";
+            std::cout << "User persistence removal failed - entry still exists\n";
         }
     }
     else {
-        std::cout << "Failed to remove persistence\n";
+        std::cout << "Failed to remove user persistence\n";
     }
 
 //STARTUP
